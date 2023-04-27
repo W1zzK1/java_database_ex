@@ -1,7 +1,19 @@
 package org.gorbunov;
 
+import org.gorbunov.controller.Controller;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Controller controller = new Controller();
+
+        controller.addPersonView();
+//        controller.addPersonView();
+//        controller.showPersons();
+
+//        controller.findPersonWithId();
+//
+//        controller.deletePerson();
+//
+//        controller.updatePerson();
     }
 }
