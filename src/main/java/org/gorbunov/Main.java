@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();
 
-        controller.addPersonView();
 //        controller.addPersonView();
-//        controller.showPersons();
+        controller.showPersons();
 
 //        controller.findPersonWithId();
 //

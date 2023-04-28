@@ -10,10 +10,11 @@ public class PersonServiceImpl implements PersonService {
     public PersonStorage storage = new PersonStorage();
 
     public void showPersons() {
-//        List<Person> allPeople = storage.getAllPersons();
-//        for (Person person : allPeople) {
-//            System.out.println(person);
-//        }
+        try {
+            storage.showAllPersons();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void createPerson(Person person) {

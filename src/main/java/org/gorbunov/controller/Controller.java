@@ -70,9 +70,9 @@ public class Controller {
 
     }
 
-//    public void showPersons() {
-//        service.showPersons();
-//    }
+    public void showPersons() {
+        service.showPersons();
+    }
 //
 //    public void findPersonWithId() {
 //        boolean correctFlag = false;

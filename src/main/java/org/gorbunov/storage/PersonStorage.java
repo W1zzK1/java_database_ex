@@ -3,14 +3,12 @@ package org.gorbunov.storage;
 import org.gorbunov.model.Person;
 import org.gorbunov.persistance.DAO;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.*;
 
 public class PersonStorage {
     private DAO dao = DAO.getInstance();
     private String INSERT_SQL = "INSERT INTO persons (first_name, second_name, middle_name, birth_date) VALUES (?, ?, ?, ?)";
+    private String SELECT_ALL_SQL = "Select * from persons";
 
     public Person addPerson(Person person) throws SQLException {
         PreparedStatement ps = dao.getConnection().prepareStatement(INSERT_SQL);
@@ -24,25 +22,17 @@ public class PersonStorage {
         return person;
     }
 
+    public void showAllPersons() throws SQLException {
+        ResultSet ps = dao.getConnection().createStatement().executeQuery(SELECT_ALL_SQL);
 
-//    public void addPerson(Person person) {
-//        allPersons.add(person);
-//        index++;
-//    }
-//
-//    public void deletePerson(int id) {
-//        allPersons.remove(id);
-//    }
-//
-//    public List<Person> getAllPersons() {
-//        return new ArrayList<>(allPersons);
-//    }
-//
-//    public Person updatePerson(int id, Person person) {
-//        return allPersons.set(id, person);
-//    }
-//
-//    public Person findPersonWithId(int id) {
-//        return allPersons.get(id);
-//    }
+        while (ps.next()) {
+            System.out.print("ID = " + ps.getObject(1) + "; ");
+            System.out.print("first_name = " + ps.getObject(2) + "; ");
+            System.out.print("second_name = " + ps.getObject(3) + "; ");
+            System.out.print("middle_name = " + ps.getObject(4) + "; ");
+            System.out.print("birth_date = " + ps.getObject(5) + "; ");
+            System.out.println(" ");
+        }
+        ps.close();
+    }
 }
