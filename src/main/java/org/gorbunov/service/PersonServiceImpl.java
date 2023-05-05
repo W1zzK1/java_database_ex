@@ -12,7 +12,7 @@ public class PersonServiceImpl implements PersonService {
     public void showPersons() {
         try {
             storage.showAllPersons();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -20,26 +20,33 @@ public class PersonServiceImpl implements PersonService {
     public void createPerson(Person person) {
         try {
             storage.addPerson(person);
-        } catch (SQLException e){
+        } catch (SQLException e) {
 //            throw new RuntimeException();
             System.out.println(e.getMessage());
         }
     }
 
-//    public void deletePerson(int id){
-//        storage.deletePerson(id);
-//    }
-//    public void findPersonWithId(Integer id) {
-//        Person a = storage.findPersonWithId(id);
-//        System.out.println(a);
-//    }
-//
-//    public void updatePerson(int id, Person newPerson) {
-//        storage.updatePerson(id, newPerson);
-//    }
-
-    private boolean validateString(String s) {
-        return s.matches("\\d");
+    public Person showPersonById(Integer id) {
+        try {
+            return storage.getPersonById(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+        public void deletePerson(int id){
+            try {
+                storage.deletePerson(id);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    public void updatePerson(int id, Person newPerson) {
+        try {
+            storage.updatePersonById(id, newPerson);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

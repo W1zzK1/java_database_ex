@@ -4,6 +4,7 @@ import org.gorbunov.exception.IlligalDataException;
 import org.gorbunov.model.Person;
 import org.gorbunov.service.PersonServiceImpl;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,6 +73,25 @@ public class Controller {
 
     public void showPersons() {
         service.showPersons();
+    }
+    public void showPersonById(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите Id для поиска : ");
+        Integer id = Integer.valueOf(sc.nextLine());
+        System.out.println(service.showPersonById(id));
+    }
+
+    public void updatePerson(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите Id persona для обновления данных : ");
+        Integer id = Integer.valueOf(sc.nextLine());
+        service.updatePerson(id, readData(sc));
+    }
+    public void deletePerson(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите Id для поиска : ");
+        Integer id = Integer.valueOf(sc.nextLine());
+        service.deletePerson(id);
     }
 //
 //    public void findPersonWithId() {

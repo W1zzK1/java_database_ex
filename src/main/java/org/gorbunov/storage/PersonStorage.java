@@ -4,6 +4,10 @@ import org.gorbunov.model.Person;
 import org.gorbunov.persistance.DAO;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PersonStorage {
     private DAO dao = DAO.getInstance();
@@ -34,5 +38,35 @@ public class PersonStorage {
             System.out.println(" ");
         }
         ps.close();
+    }
+
+    public Person getPersonById(int id) throws SQLException{
+        String sql = "Select * from persons where id = " + id;
+        ResultSet ps = dao.getConnection().createStatement().executeQuery(sql);
+
+        ps.next();
+        return new Person(
+                ps.getString("first_name"),
+                ps.getString("second_name"),
+                ps.getString("middle_name"),
+                ps.getDate("birth_date").toLocalDate()
+        );
+    }
+
+    public void updatePersonById(int id, Person person) throws SQLException {
+        String sql = "Update persons Set first_name = ?, second_name = ?, middle_name = ?, birth_date = ? Where id = " + id;
+        PreparedStatement ps = dao.getConnection().prepareStatement(sql);
+        ps.setString(1, person.getFirstName());
+        ps.setString(2, person.getSecondName());
+        ps.setString(3, person.getPatternalName());
+        ps.setDate(4, Date.valueOf(person.getBirthDate()));
+
+        ps.executeUpdate();
+    }
+    public void deletePerson(int id) throws SQLException{
+        String sql = "Delete from persons where id = " + id;
+        PreparedStatement ps = dao.getConnection().prepareStatement(sql);
+
+        ps.executeUpdate();
     }
 }
