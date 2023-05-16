@@ -87,12 +87,12 @@ public class Controller {
         Integer id = Integer.valueOf(sc.nextLine());
         service.updatePerson(id, readData(sc));
     }
-    public void deletePerson(){
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Введите Id для поиска : ");
-        Integer id = Integer.valueOf(sc.nextLine());
-        service.deletePerson(id);
-    }
+//    public void deletePerson(){
+//        Scanner sc = new Scanner(System.in);
+//        System.out.print("Введите Id для поиска : ");
+//        Integer id = Integer.valueOf(sc.nextLine());
+//        service.deletePerson(id);
+//    }
 //
 //    public void findPersonWithId() {
 //        boolean correctFlag = false;

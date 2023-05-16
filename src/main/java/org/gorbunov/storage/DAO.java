@@ -1,13 +1,11 @@
-package org.gorbunov.persistance;
+package org.gorbunov.storage;
 
 import org.gorbunov.exception.IlligalDataException;
+import org.gorbunov.persistance.DataAccessObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DAO {
+public class DAO implements DataAccessObject {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/test";
     private static final String DB_USER = "test";
     private static final String DB_PASSWORD = "test";
@@ -27,7 +25,7 @@ public class DAO {
             } catch (SQLException e) {
                 System.out.println("Не происходит подключение к " + DB_URL);
                 e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 System.exit(0);
                 throw new IlligalDataException();
             }
@@ -45,4 +43,15 @@ public class DAO {
     public DAO() throws SQLException {
         connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
+
+//    public <T> List<T> executeQuery(String sql, ResultSetProcessor<T> processor) throws SQLException {
+//        Statement st = dao.getConnection().createStatement();
+//        ResultSet rs = st.executeQuery(sql);
+//        List<T> entityList = new ArrayList<>();
+//        while (rs.next()) {
+//            T entity = processor.process(rs);
+//            entityList.add(entity);
+//        }
+//        return entityList;
+//    }
 }

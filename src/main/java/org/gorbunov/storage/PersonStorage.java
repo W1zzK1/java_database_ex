@@ -1,15 +1,11 @@
 package org.gorbunov.storage;
 
 import org.gorbunov.model.Person;
-import org.gorbunov.persistance.DAO;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.LinkedList;
 import java.util.List;
 
-public class PersonStorage {
+public class PersonStorage implements Storage{
     private DAO dao = DAO.getInstance();
     private String INSERT_SQL = "INSERT INTO persons (first_name, second_name, middle_name, birth_date) VALUES (?, ?, ?, ?)";
     private String SELECT_ALL_SQL = "Select * from persons";
@@ -26,21 +22,36 @@ public class PersonStorage {
         return person;
     }
 
-    public void showAllPersons() throws SQLException {
-        ResultSet ps = dao.getConnection().createStatement().executeQuery(SELECT_ALL_SQL);
-
-        while (ps.next()) {
-            System.out.print("ID = " + ps.getObject(1) + "; ");
-            System.out.print("first_name = " + ps.getObject(2) + "; ");
-            System.out.print("second_name = " + ps.getObject(3) + "; ");
-            System.out.print("middle_name = " + ps.getObject(4) + "; ");
-            System.out.print("birth_date = " + ps.getObject(5) + "; ");
-            System.out.println(" ");
-        }
-        ps.close();
+    @Override
+    public Object getById(Integer id) throws SQLException {
+        return null;
     }
 
-    public Person getPersonById(int id) throws SQLException{
+    public List<Person> showAll() throws SQLException {
+        return dao.executeQuery("Selct * from persons", rs -> new Person(
+                rs.getString("first_name"),
+                rs.getString("second_name"),
+                rs.getString("middle_name"),
+                rs.getDate("birth_date").toLocalDate()
+        ));
+    }
+
+    @Override
+    public Object add(Object entity) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void update(Integer id, Object entity) throws SQLException {
+
+    }
+
+    @Override
+    public void delete(Integer id) throws SQLException {
+        Storage.super.delete(id);
+    }
+
+    public Person getById(int id) throws SQLException{
         String sql = "Select * from persons where id = " + id;
         ResultSet ps = dao.getConnection().createStatement().executeQuery(sql);
 
@@ -53,7 +64,7 @@ public class PersonStorage {
         );
     }
 
-    public void updatePersonById(int id, Person person) throws SQLException {
+    public void update(int id, Person person) throws SQLException {
         String sql = "Update persons Set first_name = ?, second_name = ?, middle_name = ?, birth_date = ? Where id = " + id;
         PreparedStatement ps = dao.getConnection().prepareStatement(sql);
         ps.setString(1, person.getFirstName());
@@ -63,7 +74,7 @@ public class PersonStorage {
 
         ps.executeUpdate();
     }
-    public void deletePerson(int id) throws SQLException{
+    public void delete(int id) throws SQLException{
         String sql = "Delete from persons where id = " + id;
         PreparedStatement ps = dao.getConnection().prepareStatement(sql);
 
