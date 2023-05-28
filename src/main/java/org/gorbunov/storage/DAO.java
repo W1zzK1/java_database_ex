@@ -6,7 +6,7 @@ import org.gorbunov.persistance.DataAccessObject;
 import java.sql.*;
 
 public class DAO implements DataAccessObject {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/test";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/test?characterEncoding=UTF-8";
     private static final String DB_USER = "test";
     private static final String DB_PASSWORD = "test";
 

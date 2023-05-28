@@ -1,13 +1,28 @@
 package org.gorbunov.model;
 
-import java.time.LocalDate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.gorbunov.persistance.annotations.Column;
+import org.gorbunov.persistance.annotations.Table;
 
+import java.time.LocalDate;
+@Data
+@Table(name = "persons")
 public class Person {
+    @Column(name = "first_name")
     public String firstName;
+    @Column(name = "second_name")
     public String secondName;
+    @Column(name = "middle_name")
     public String patternalName;
+
     public LocalDate birthDate;
 
+    public Person(String firstName, String secondName, String patternalName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.patternalName = patternalName;
+    }
 
     public String getFirstName() {
         return firstName;

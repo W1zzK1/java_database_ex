@@ -22,6 +22,9 @@ public class PersonServiceImpl implements PersonService {
         } catch (SQLException e) {
 //            throw new RuntimeException();
             System.out.println(e.getMessage());
+        } catch (IllegalAccessException e) {
+            System.out.println(e.getMessage());
+//            throw new RuntimeException(e);
         }
     }
 

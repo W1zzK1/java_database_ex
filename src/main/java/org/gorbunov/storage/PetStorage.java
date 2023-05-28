@@ -17,9 +17,9 @@ public class PetStorage {
 //        ps.execute();
     }
 
-    public List<Pet> showAll() throws SQLException {
-        return dao.executeQuery("Select * from pets", new PetRSProcessor());
-    }
+//    public List<Pet> showAll() throws SQLException {
+//        return dao.executeQuery("Select * from pets", new PetRSProcessor());
+//    }
 
     public Pet getById(int id) throws SQLException{
         String sql = "Select * from pets where id = " + id;

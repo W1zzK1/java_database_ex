@@ -14,6 +14,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.6.0")
 
     compileOnly("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testRuntimeOnly("org.junit.jupiter:junit-jupiter")

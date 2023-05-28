@@ -1,25 +1,17 @@
 package org.gorbunov.storage;
 
 import org.gorbunov.model.Person;
+import org.gorbunov.persistance.Executor;
+import org.gorbunov.persistance.SqlBuilder;
 
 import java.sql.*;
 import java.util.List;
 
 public class PersonStorage implements Storage{
     private DAO dao = DAO.getInstance();
-    private String INSERT_SQL = "INSERT INTO persons (first_name, second_name, middle_name, birth_date) VALUES (?, ?, ?, ?)";
-    private String SELECT_ALL_SQL = "Select * from persons";
 
-    public Person addPerson(Person person) throws SQLException {
-        PreparedStatement ps = dao.getConnection().prepareStatement(INSERT_SQL);
-        ps.setString(1, person.getFirstName());
-        ps.setString(2, person.getSecondName());
-        ps.setString(3, person.getPatternalName());
-        ps.setDate(4, Date.valueOf(person.getBirthDate()));
-
-        ps.execute();
-
-        return person;
+    public String addPerson(Person person) throws SQLException, IllegalAccessException {
+        return SqlBuilder.buildInsert(person);
     }
 
     @Override
@@ -27,14 +19,14 @@ public class PersonStorage implements Storage{
         return null;
     }
 
-    public List<Person> showAll() throws SQLException {
-        return dao.executeQuery("Selct * from persons", rs -> new Person(
-                rs.getString("first_name"),
-                rs.getString("second_name"),
-                rs.getString("middle_name"),
-                rs.getDate("birth_date").toLocalDate()
-        ));
+    @Override
+    public List showAll() throws SQLException {
+        return null;
     }
+
+//    public List<Person> showAll() throws SQLException {
+//        return Executor
+//    }
 
     @Override
     public Object add(Object entity) throws SQLException {

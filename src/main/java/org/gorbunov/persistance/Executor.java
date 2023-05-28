@@ -9,9 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Executor {
     private final DataAccessObject dao;
+
+    public Executor(DataAccessObject dao) {
+        this.dao = dao;
+    }
+
     public <T> List<T> executeQuery(String sql, ResultSetProcessor<T> processor) throws SQLException {
         Statement st = dao.getConnection().createStatement();
         ResultSet rs = st.executeQuery(sql);
